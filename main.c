@@ -31,10 +31,33 @@ int main (void){
         exit(1);
     }
 
-    
-    SDL_RenderClear(game.renderer);
-    SDL_RenderPresent(game.renderer);
-    SDL_Delay(5000);
+    int game_is_running = 1;
+    while(game_is_running){
+        SDL_Event event;
+        while(SDL_PollEvent(&event)){
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                destroy_game(&game);
+                exit(EXIT_SUCCESS);
+                break;
+            case SDL_KEYDOWN:
+                if(event.key.keysym.sym == SDLK_ESCAPE){
+                    destroy_game(&game);
+                    exit(EXIT_SUCCESS);
+                }
+                break;
+            
+            default:
+                break;
+            }
+        }
+
+
+        SDL_RenderClear(game.renderer);
+        SDL_RenderPresent(game.renderer);
+        SDL_Delay(16);
+    }
     
     destroy_game(&game);
     printf("Everything went right\n");
