@@ -32,6 +32,24 @@ int main (void){
     }
 
     int game_is_running = 1;
+
+    // //define grass color for the background
+    // SDL_SetRenderDrawColor(game.renderer, 34, 139, 34, 255);
+    // SDL_RenderClear(game.renderer);
+    // SDL_RenderPresent(game.renderer);
+
+    // SDL_Delay(1000);
+
+    // SDL_SetRenderDrawColor(game.renderer, 34, 139, 34, 255);
+    // SDL_RenderClear(game.renderer);
+
+    // SDL_SetRenderDrawColor(game.renderer, 34, 0, 255, 255);
+    // SDL_Rect rect = {100,100,50,200};
+    // SDL_RenderDrawRect(game.renderer,&rect);
+
+    // SDL_RenderPresent(game.renderer);
+    
+    SDL_Rect rect = {100,100,50,200};
     while(game_is_running){
         SDL_Event event;
         while(SDL_PollEvent(&event)){
@@ -41,21 +59,36 @@ int main (void){
                 destroy_game(&game);
                 exit(EXIT_SUCCESS);
                 break;
+
             case SDL_KEYDOWN:
-                if(event.key.keysym.sym == SDLK_ESCAPE){
+            switch(event.key.keysym.sym){
+                case SDLK_ESCAPE:
                     destroy_game(&game);
                     exit(EXIT_SUCCESS);
-                }
+                    break;
+                case SDLK_RIGHT:
+                    rect.x += 10;
+                    break;
+                default:
                 break;
+            }
             
             default:
                 break;
             }
         }
 
-
+        //define grass color for the background
+        SDL_SetRenderDrawColor(game.renderer, 34, 139, 34, 255);
         SDL_RenderClear(game.renderer);
+
+        SDL_SetRenderDrawColor(game.renderer, 34, 0, 255, 255);
+        SDL_RenderDrawRect(game.renderer,&rect);
+
         SDL_RenderPresent(game.renderer);
+
+        // SDL_RenderClear(game.renderer);
+        // SDL_RenderPresent(game.renderer);
         SDL_Delay(16);
     }
     

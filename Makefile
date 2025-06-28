@@ -1,4 +1,4 @@
 all: main
 
 main: main.c
-	gcc -o hello_sd main.c -lSDL2
+	gcc -o snake main.c -lSDL2
