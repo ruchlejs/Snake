@@ -6,15 +6,14 @@
 int main (void){
     snake_s *head = NULL;
     snake_init(&head);
+    fruit_s fruit = {0,0};
+    direction direction = left;
 
-    snake_s *temp = head;
-    while(temp!=NULL){
-        printf("test %d %d\n",temp->x,temp->y);
-        temp = temp->prev;
-    }
-
-
-
+    print_snake(head);
+    move_right(&head);
+    print_snake(head);
+    take_fruit(&head, fruit);
+    print_snake(head);
 
 
 
