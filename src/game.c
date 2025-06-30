@@ -58,7 +58,13 @@ int detect_collision(snake_s *head){
     return 0;
 }
 
-void move_forward(snake_s **head, direction direction){
+void move_forward(snake_s **head, direction direction, fruit_s *fruit){
+    if(is_fruit(*head,direction, *fruit)){
+        take_fruit(head, *fruit);
+        *fruit = generate_fruit(*head);
+        return;
+    }
+
     switch (direction){
         case left:
             move_left(head);
@@ -98,6 +104,39 @@ void propagate_coords(snake_s **head, int x, int y){
     }
 }
 
+int is_fruit(snake_s *head, direction direction, fruit_s fruit){
+    switch(direction){
+        case left:
+        if(head->x-1 == fruit.x && head->y == fruit.y){
+            return 1;
+        }
+            break;
+
+        case right:
+        if(head->x+1 == fruit.x && head->y == fruit.y){
+            return 1;
+        }
+            break;
+
+        case up:
+        if(head->x == fruit.x && head->y-1 == fruit.y){
+            return 1;
+        }
+            break;
+
+        case down:
+        if(head->x == fruit.x && head->y+1 == fruit.y){
+            return 1;
+        }
+            break;
+
+        default:
+            break;
+    }
+    
+    return 0;
+}
+
 void victory(void){
     printf("Congratulation, you win!\n");
     exit(EXIT_SUCCESS);
@@ -106,4 +145,30 @@ void victory(void){
 void game_over(void){
     printf("Game Over, try again!!\n");
     exit(EXIT_SUCCESS);
+}
+
+fruit_s generate_fruit(snake_s *head){
+    int x = -1;
+    int y = -1;
+
+    snake_s *temp = head;
+    int collision = 1;
+    while(collision){
+        collision = 0;
+        x = rand() % GAME_SIZE -1;
+        y = rand() % GAME_SIZE -1;
+
+        while(temp != NULL){
+            if(x == temp->x && y == temp->y){
+                collision = 1;
+                break;
+            }
+            temp = temp->prev;
+        }
+    }
+    return (fruit_s){x,y};
+}
+
+void print_fruit(fruit_s fruit){
+    printf("fruit -> x: %d, y: %d\n",fruit.x,fruit.y);
 }

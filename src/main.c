@@ -6,29 +6,31 @@
 int main (void){
     snake_s *head = NULL;
     snake_init(&head);
-    fruit_s fruit = {0,0};
+    fruit_s fruit = {0,3};
+    // fruit_s fruit = generate_fruit(head);
     direction direction = down;
 
     print_snake(head);
 
-    move_forward(&head, direction);
+    move_forward(&head, direction, &fruit);
     print_snake(head);
+    print_fruit(fruit);
 
-    direction = right;
-    move_forward(&head, direction);
+    move_forward(&head, direction, &fruit);
     print_snake(head);
+    print_fruit(fruit);
 
-    direction = up;
-    move_forward(&head, direction);
+    move_forward(&head, direction, &fruit);
     print_snake(head);
-    printf("test\n");
+    print_fruit(fruit);
 
+    move_forward(&head, direction, &fruit);
+    print_snake(head);
+    print_fruit(fruit);
     
     
     
-    // print_snake(head);
-    // take_fruit(&head, fruit);
-    // print_snake(head);
+    
 
 
 

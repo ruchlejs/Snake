@@ -1,8 +1,10 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include <stdio.h>
+#include <stdlib.h>
 
-#define INIT_SIZE 5 //the initial size of the snake
+#define INIT_SIZE 3 //the initial size of the snake
+#define GAME_SIZE 10
 
 typedef struct snake{
     int x;
@@ -33,9 +35,12 @@ void move_up(snake_s **head);
 void move_down(snake_s **head);
 void take_fruit(snake_s **head, fruit_s fruit);
 int detect_collision(snake_s *head);
-void move_forward(snake_s **head, direction direction);
+void move_forward(snake_s **head, direction direction, fruit_s *fruit);
 void propagate_coords(snake_s **head, int x, int y);
+int is_fruit(snake_s *head, direction direction, fruit_s fruit);
 void victory(void);
 void game_over(void);
+fruit_s generate_fruit(snake_s *head);
+void print_fruit(fruit_s fruit);
 
 #endif
