@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "../include/renderer.h"
 
 void destroy_game(game_t *game){
     SDL_DestroyRenderer(game->renderer);

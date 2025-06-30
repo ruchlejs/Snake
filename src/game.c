@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "game.h"
+#include "../include/game.h"
 
 void snake_init(snake_s **head){
     int i;
     for(i = 0; i < INIT_SIZE; i++){
-        push(head,2-i,0);
+        push(head,INIT_SIZE -1 - i,0);
     }
 }
 
