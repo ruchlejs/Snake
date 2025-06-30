@@ -42,8 +42,9 @@ void move_down(snake_s **head){
     propagate_coords(head,(*head)->x, (*head)->y+1);
 }
 
-void take_fruit(snake_s **head, fruit_s fruit){
+void take_fruit(snake_s **head, fruit_s fruit, int *score){
     push(head, fruit.x, fruit.y);
+    (*score)++;
 }
 
 int detect_collision(snake_s *head){
@@ -61,9 +62,9 @@ int detect_collision(snake_s *head){
     return 0;
 }
 
-void move_forward(snake_s **head, direction direction, fruit_s *fruit){
+void move_forward(snake_s **head, direction direction, fruit_s *fruit, int *score){
     if(is_fruit(*head,direction, *fruit)){
-        take_fruit(head, *fruit);
+        take_fruit(head, *fruit, score);
         *fruit = generate_fruit(*head);
         return;
     }
@@ -89,7 +90,7 @@ void move_forward(snake_s **head, direction direction, fruit_s *fruit){
             break;
         }
     if(detect_collision(*head)){
-        game_over();
+        game_over(*score);
     }
 }
 
@@ -145,8 +146,8 @@ void victory(void){
     exit(EXIT_SUCCESS);
 }
 
-void game_over(void){
-    printf("Game Over, try again!!\n");
+void game_over(int score){
+    printf("Game Over, you did %d, try again!!\n", score);
     exit(EXIT_SUCCESS);
 }
 

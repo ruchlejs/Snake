@@ -7,9 +7,10 @@
 
 #define WINDOW_TITLE "Snake"
 #define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 480
+#define WINDOW_HEIGHT 540
 #define TILE_SIZE 20
-#define TEXT_SIZE 80
+#define TEXT_SIZE 40
+#define MARGIN 60
 #define FONT_PATH "fonts/mouldy_cheese_font/MouldyCheeseRegular-WyMWG.ttf"
 
 
@@ -28,5 +29,5 @@ void destroy_game(game_t *game);
 void draw_background(SDL_Renderer *renderer);
 void draw_fruit(SDL_Renderer *renderer, fruit_s fruit);
 void draw_snake(SDL_Renderer *renderer, snake_s *head);
-void print_score(game_t *game, int score);
+int print_score(game_t *game, int score);
 #endif

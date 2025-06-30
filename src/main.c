@@ -83,12 +83,11 @@ int main (void){
                 break;
             }
         }
-        move_forward(&head, direction, &fruit);
+        move_forward(&head, direction, &fruit, &score);
 
         //define grass color for the background
         draw_background(game.renderer);
-
-        SDL_RenderCopy(game.renderer, game.text_img, NULL, &game.text_rect);
+        print_score(&game, score);
 
         draw_fruit(game.renderer, fruit);
 

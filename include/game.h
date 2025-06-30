@@ -34,13 +34,13 @@ void move_right(snake_s **head);
 void move_left(snake_s **head);
 void move_up(snake_s **head);
 void move_down(snake_s **head);
-void take_fruit(snake_s **head, fruit_s fruit);
+void take_fruit(snake_s **head, fruit_s fruit, int *score);
 int detect_collision(snake_s *head);
-void move_forward(snake_s **head, direction direction, fruit_s *fruit);
+void move_forward(snake_s **head, direction direction, fruit_s *fruit, int *score);
 void propagate_coords(snake_s **head, int x, int y);
 int is_fruit(snake_s *head, direction direction, fruit_s fruit);
 void victory(void);
-void game_over(void);
+void game_over(int score);
 fruit_s generate_fruit(snake_s *head);
 void print_fruit(fruit_s fruit);
 
