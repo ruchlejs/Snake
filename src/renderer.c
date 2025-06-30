@@ -28,3 +28,26 @@ int SDL_initialize(game_t *game){
 
     return 0;
 }
+
+void draw_background(SDL_Renderer *renderer){
+    SDL_SetRenderDrawColor(renderer, 34, 139, 34, 255);
+    SDL_RenderClear(renderer);
+}
+
+void draw_fruit(SDL_Renderer *renderer, fruit_s fruit){
+    SDL_Rect rect = {TILE_SIZE * fruit.x, TILE_SIZE * fruit.y, TILE_SIZE, TILE_SIZE};
+    SDL_SetRenderDrawColor(renderer, 255,0,0,255);
+    SDL_RenderFillRect(renderer, &rect);
+}
+
+void draw_snake(SDL_Renderer *renderer, snake_s *head){
+    
+    while(head != NULL){
+        SDL_SetRenderDrawColor(renderer, 0,0,255,255);
+        SDL_Rect rect = {TILE_SIZE * head->x, TILE_SIZE * head->y, TILE_SIZE, TILE_SIZE};
+        SDL_RenderFillRect(renderer, &rect);
+        SDL_SetRenderDrawColor(renderer, 20,20,240,255);
+        SDL_RenderDrawRect(renderer, &rect);
+        head = head->prev;
+    }
+}

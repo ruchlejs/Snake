@@ -4,7 +4,8 @@
 #include <stdlib.h>
 
 #define INIT_SIZE 3 //the initial size of the snake
-#define GAME_SIZE 10
+#define GAME_WIDTH 32
+#define GAME_HEIGHT 24
 
 typedef struct snake{
     int x;

@@ -47,7 +47,7 @@ void take_fruit(snake_s **head, fruit_s fruit){
 }
 
 int detect_collision(snake_s *head){
-    if(head->x < 0 || head->x >= GAME_SIZE || head->y < 0 || head->y >= GAME_SIZE){
+    if(head->x < 0 || head->x >= GAME_WIDTH || head->y < 0 || head->y >= GAME_HEIGHT){
         return 1;
     }
     snake_s *temp = head;
@@ -158,8 +158,8 @@ fruit_s generate_fruit(snake_s *head){
     int collision = 1;
     while(collision){
         collision = 0;
-        x = rand() % GAME_SIZE -1;
-        y = rand() % GAME_SIZE -1;
+        x = rand() % GAME_WIDTH -1;
+        y = rand() % GAME_HEIGHT -1;
 
         while(temp != NULL){
             if(x == temp->x && y == temp->y){

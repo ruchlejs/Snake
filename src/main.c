@@ -6,99 +6,89 @@
 int main (void){
     snake_s *head = NULL;
     snake_init(&head);
-    fruit_s fruit = {0,3};
-    // fruit_s fruit = generate_fruit(head);
+    fruit_s fruit = generate_fruit(head);
     direction direction = down;
 
-    print_snake(head);
 
-    move_forward(&head, direction, &fruit);
-    print_snake(head);
+    game_t game = {
+        .window = NULL,
+        .renderer = NULL
+    };
 
-    move_forward(&head, direction, &fruit);
-    print_snake(head);
-
-    move_forward(&head, direction, &fruit);
-    print_snake(head);
-    print_fruit(fruit);
-
-    move_forward(&head, direction, &fruit);
-    print_snake(head);
-    print_fruit(fruit);
-    
-    
-    
-    
-
-
-
-    // game_t game = {
-    //     .window = NULL,
-    //     .renderer = NULL
-    // };
-
-    // if(SDL_initialize(&game)){
-    //     printf("error during init\n");
-    //     exit(1);
-    // }
-
-
-    // SDL_Rect rect = {0,0,20,20};
+    if(SDL_initialize(&game)){
+        printf("error during init\n");
+        exit(1);
+    }
 
     
-    // int game_is_running = 1;
+    int game_is_running = 1;
 
-    // while(game_is_running){
-    //     SDL_Event event;
-    //     while(SDL_PollEvent(&event)){
-    //         switch (event.type)
-    //         {
-    //         case SDL_QUIT:
-    //             destroy_game(&game);
-    //             exit(EXIT_SUCCESS);
-    //             break;
+    while(game_is_running){
+        SDL_Event event;
+        int key_pressed = 0;
+        while(SDL_PollEvent(&event)){
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                destroy_game(&game);
+                exit(EXIT_SUCCESS);
+                break;
 
-    //         case SDL_KEYDOWN:
-    //         switch(event.key.keysym.sym){
-    //             case SDLK_ESCAPE:
-    //                 destroy_game(&game);
-    //                 exit(EXIT_SUCCESS);
-    //                 break;
-    //             case SDLK_RIGHT:
-    //                 rect.x += 20;
-    //                 break;
-    //             case SDLK_LEFT:
-    //                 rect.x -= 20;
-    //                 break;
-    //             case SDLK_UP:
-    //                 rect.y -= 20;
-    //                 break;
-    //             case SDLK_DOWN:
-    //                 rect.y += 20;
-    //                 break;
-    //             default:
-    //             break;
-    //         }
+            case SDL_KEYDOWN:
+            switch(event.key.keysym.sym){
+                case SDLK_ESCAPE:
+                    destroy_game(&game);
+                    exit(EXIT_SUCCESS);
+                    break;
+                default:
+                    if(key_pressed)break;
+                    key_pressed = 1;
+                    switch(event.key.keysym.sym){
+                        case SDLK_RIGHT:
+                            if(direction >= 2){
+                                direction = right;
+                            }
+                            break;
+                        case SDLK_LEFT:
+                            if(direction >= 2){
+                                direction = left;
+                            }
+                            break;
+                        case SDLK_UP:
+                            if(direction < 2){
+                                direction = up;
+                            }
+                            break;
+                        case SDLK_DOWN:
+                            if(direction < 2){
+                                direction = down;
+                            }
+                            break;
+                        default:
+                        break;
+                    }
+                    break;
+            }
             
-    //         default:
-    //             break;
-    //         }
-    //     }
+            default:
+                break;
+            }
+        }
+        move_forward(&head, direction, &fruit);
 
-    //     //define grass color for the background
-    //     SDL_SetRenderDrawColor(game.renderer, 34, 139, 34, 255);
-    //     SDL_RenderClear(game.renderer);
+        //define grass color for the background
+        draw_background(game.renderer);
 
-    //     //draw a rectangle
-    //     SDL_SetRenderDrawColor(game.renderer, 34, 0, 255, 255);
-    //     SDL_RenderFillRect(game.renderer,&rect);
+        draw_fruit(game.renderer, fruit);
 
-    //     SDL_RenderPresent(game.renderer);
-    //     SDL_Delay(16);
-    // }
+        draw_snake(game.renderer, head);
+
+        SDL_RenderPresent(game.renderer);
+        SDL_Delay(120);
+    }
     
-    // destroy_game(&game);
-    // printf("Everything went right\n");
+    destroy_game(&game);
+    printf("Everything went right\n");
 
     return 0;
 }
