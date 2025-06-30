@@ -13,7 +13,7 @@ DEP = $(OBJ_FILES:.o=.d)
 all: snake
 
 snake: $(OBJ_FILES)
-	$(CC) $(CFLAGS) $^ -o $@ -lSDL2
+	$(CC) $(CFLAGS) $^ -o $@ -lSDL2 -lSDL2_ttf
 
 $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@

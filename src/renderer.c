@@ -1,14 +1,22 @@
 #include "../include/renderer.h"
 
 void destroy_game(game_t *game){
+    SDL_DestroyTexture(game->text_img);
     SDL_DestroyRenderer(game->renderer);
     SDL_DestroyWindow(game->window);
+    TTF_CloseFont(game->text_font);
+    TTF_Quit();
     SDL_Quit();
 }
 
 int SDL_initialize(game_t *game){
     if(SDL_Init(SDL_INIT_VIDEO)){
         printf("error initializing SDL: %s\n",SDL_GetError());
+        return -1;
+    }
+
+    if(TTF_Init()){
+        printf("error initializing SDL_TTF: %s\n",TTF_GetError());
         return -1;
     }
 
@@ -23,6 +31,32 @@ int SDL_initialize(game_t *game){
         printf("error creating the renderer: %s\n",SDL_GetError());
         SDL_DestroyWindow(game->window);
         SDL_Quit();
+        return -1;
+    }
+
+    return 0;
+}
+
+int load_media(game_t *game){
+    game->text_font = TTF_OpenFont(FONT_PATH,TEXT_SIZE);
+    if(!game->text_font){
+        printf("Error loading the font: %s\n",TTF_GetError());
+        return -1;
+    }
+
+    SDL_Surface *surface = TTF_RenderText_Blended(game->text_font, "Score: ", game->text_color);
+    if(!surface){
+        printf("Error creating the surface: %s\n",SDL_GetError());
+        return -1;
+    }
+
+    game->text_rect.w = surface->w;
+    game->text_rect.h = surface->h;
+    game->text_img = SDL_CreateTextureFromSurface(game->renderer, surface);
+
+    SDL_FreeSurface(surface);
+    if(!game->text_img){
+        printf("Error creating the text texture: %s\n",SDL_GetError());
         return -1;
     }
 

@@ -8,11 +8,16 @@ int main (void){
     snake_init(&head);
     fruit_s fruit = generate_fruit(head);
     direction direction = down;
+    int score = 0;
 
 
     game_t game = {
         .window = NULL,
-        .renderer = NULL
+        .renderer = NULL,
+        .text_font = NULL,
+        .text_color = {255, 255, 255, 255},
+        .text_rect = {0,0,0,0},
+        .text_img = NULL,
     };
 
     if(SDL_initialize(&game)){
@@ -20,6 +25,10 @@ int main (void){
         exit(1);
     }
 
+    if(load_media(&game)){
+        printf("error during loading media\n");
+        exit(1);
+    }
     
     int game_is_running = 1;
 
@@ -78,6 +87,8 @@ int main (void){
 
         //define grass color for the background
         draw_background(game.renderer);
+
+        SDL_RenderCopy(game.renderer, game.text_img, NULL, &game.text_rect);
 
         draw_fruit(game.renderer, fruit);
 
