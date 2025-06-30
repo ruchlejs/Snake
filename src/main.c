@@ -21,6 +21,7 @@ int main (void){
     direction = up;
     move_forward(&head, direction);
     print_snake(head);
+    printf("test\n");
 
     
     

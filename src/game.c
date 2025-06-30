@@ -80,7 +80,7 @@ void move_forward(snake_s **head, direction direction){
             break;
         }
     if(detect_collision(*head)){
-        printf("Game Over\n");
+        game_over();
     }
 }
 
@@ -96,4 +96,14 @@ void propagate_coords(snake_s **head, int x, int y){
         x = temp_x;
         y = temp_y;
     }
+}
+
+void victory(void){
+    printf("Congratulation, you win!\n");
+    exit(EXIT_SUCCESS);
+}
+
+void game_over(void){
+    printf("Game Over, try again!!\n");
+    exit(EXIT_SUCCESS);
 }

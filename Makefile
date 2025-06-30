@@ -1,16 +1,25 @@
-all: main
+CC = gcc
+CFLAGS = -Wall -MMD -Iinclude
 
-main: main.o renderer.o game.o
-	gcc main.o renderer.o game.o -o snake -lSDL2
+SRC = src
+OBJ = obj
 
-main.o: main.c
-	gcc -c main.c -o main.o -lSDL2
+SRC_FILES = $(wildcard $(SRC)/*.c)
+OBJ_FILES = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRC_FILES))
+DEP = $(OBJ_FILES:.o=.d)
 
-renderer.o: renderer.c
-	gcc -c renderer.c -o renderer.o -lSDL2
+-include $(DEP)
 
-game.o: game.c
-	gcc -c game.c -o game.o
+all: snake
+
+snake: $(OBJ_FILES)
+	$(CC) $(CFLAGS) $^ -o $@ -lSDL2
+
+$(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ):
+	mkdir -p $@
 
 clean:
-	rm -rf snake *.o
+	rm -rf snake $(OBJ)/

@@ -2,7 +2,7 @@
 #define GAME_H_
 #include <stdio.h>
 
-#define INIT_SIZE 3 //the initial size of the snake
+#define INIT_SIZE 5 //the initial size of the snake
 
 typedef struct snake{
     int x;
@@ -35,5 +35,7 @@ void take_fruit(snake_s **head, fruit_s fruit);
 int detect_collision(snake_s *head);
 void move_forward(snake_s **head, direction direction);
 void propagate_coords(snake_s **head, int x, int y);
+void victory(void);
+void game_over(void);
 
 #endif
