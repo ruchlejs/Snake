@@ -3,7 +3,7 @@
 
 void snake_init(snake_s **head){
     int i;
-    for(i = 0; i < 3; i++){
+    for(i = 0; i < INIT_SIZE; i++){
         push(head,2-i,0);
     }
 }
@@ -48,10 +48,12 @@ void take_fruit(snake_s **head, fruit_s fruit){
 
 int detect_collision(snake_s *head){
     snake_s *temp = head;
+    temp = temp->prev;
     while(temp != NULL){
         if(temp->x == head->x && temp->y == head->y){
             return 1;
         }
+        temp = temp->prev;
     }
     return 0;
 }
@@ -61,26 +63,28 @@ void move_forward(snake_s **head, direction direction){
         case left:
             move_left(head);
             break;
-        
-        case right:
+            
+            case right:
             move_right(head);
             break;
-    
-        case up:
+            
+            case up:
             move_up(head);
             break;
-
-        case down:
+            
+            case down:
             move_down(head);
             break;
-
-        default:
+            
+            default:
             break;
+        }
+    if(detect_collision(*head)){
+        printf("Game Over\n");
     }
 }
 
 void propagate_coords(snake_s **head, int x, int y){
-    printf("x: %d\n",x);
     snake_s *temp = *head;
     while(temp != NULL){
         int temp_x = temp->x;

@@ -7,21 +7,21 @@ int main (void){
     snake_s *head = NULL;
     snake_init(&head);
     fruit_s fruit = {0,0};
-    direction direction = left;
+    direction direction = down;
 
     print_snake(head);
-    // propagate_coords(&head, 1,0);
-    // move_right(&head);
+
     move_forward(&head, direction);
     print_snake(head);
+
+    direction = right;
     move_forward(&head, direction);
     print_snake(head);
-    direction = down;
+
+    direction = up;
     move_forward(&head, direction);
     print_snake(head);
-    direction = left;
-    move_forward(&head, direction);
-    print_snake(head);
+
     
     
     
