@@ -14,11 +14,9 @@ int main (void){
 
     move_forward(&head, direction, &fruit);
     print_snake(head);
-    print_fruit(fruit);
 
     move_forward(&head, direction, &fruit);
     print_snake(head);
-    print_fruit(fruit);
 
     move_forward(&head, direction, &fruit);
     print_snake(head);

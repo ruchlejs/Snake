@@ -47,6 +47,9 @@ void take_fruit(snake_s **head, fruit_s fruit){
 }
 
 int detect_collision(snake_s *head){
+    if(head->x < 0 || head->x >= GAME_SIZE || head->y < 0 || head->y >= GAME_SIZE){
+        return 1;
+    }
     snake_s *temp = head;
     temp = temp->prev;
     while(temp != NULL){
