@@ -13,13 +13,14 @@ typedef struct fruit{
     int y;
 }fruit_s;
 
-/*       1
+/*
+ *       2
  *       |
- *   0 —   — 2
+ *   0 —   — 1
  *       |
  *       3
  */
-typedef enum{left,up,right,down} direction;
+typedef enum{left,right,up,down} direction;
 
 void push(snake_s **head, int x, int y);
 void snake_init(snake_s **head);
@@ -30,5 +31,7 @@ void move_up(snake_s **head);
 void move_down(snake_s **head);
 void take_fruit(snake_s **head, fruit_s fruit);
 int detect_collision(snake_s *head);
+void move_forward(snake_s **head, direction direction);
+void propagate_coords(snake_s **head, int x, int y);
 
 #endif

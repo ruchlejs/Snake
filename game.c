@@ -27,39 +27,19 @@ void print_snake(snake_s *head){
 }
 
 void move_right(snake_s **head){
-    snake_s *temp = *head;
-
-    while(temp!=NULL){
-        temp->x++;
-        temp = temp->prev;
-    }
+    propagate_coords(head,(*head)->x+1, (*head)->y);
 }
 
 void move_left(snake_s **head){
-    snake_s *temp = *head;
-
-    while(temp!=NULL){
-        temp->x--;
-        temp = temp->prev;
-    }
+    propagate_coords(head,(*head)->x-1, (*head)->y);
 }
 
 void move_up(snake_s **head){
-    snake_s *temp = *head;
-
-    while(temp!=NULL){
-        temp->y--;
-        temp = temp->prev;
-    }
+    propagate_coords(head,(*head)->x, (*head)->y-1);
 }
 
 void move_down(snake_s **head){
-    snake_s *temp = *head;
-
-    while(temp!=NULL){
-        temp->y++;
-        temp = temp->prev;
-    }
+    propagate_coords(head,(*head)->x, (*head)->y+1);
 }
 
 void take_fruit(snake_s **head, fruit_s fruit){
@@ -74,4 +54,42 @@ int detect_collision(snake_s *head){
         }
     }
     return 0;
+}
+
+void move_forward(snake_s **head, direction direction){
+    switch (direction){
+        case left:
+            move_left(head);
+            break;
+        
+        case right:
+            move_right(head);
+            break;
+    
+        case up:
+            move_up(head);
+            break;
+
+        case down:
+            move_down(head);
+            break;
+
+        default:
+            break;
+    }
+}
+
+void propagate_coords(snake_s **head, int x, int y){
+    printf("x: %d\n",x);
+    snake_s *temp = *head;
+    while(temp != NULL){
+        int temp_x = temp->x;
+        int temp_y = temp->y;
+        temp->x = x;
+        temp->y = y;
+        
+        temp = temp->prev;
+        x = temp_x;
+        y = temp_y;
+    }
 }

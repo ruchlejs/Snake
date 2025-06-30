@@ -10,13 +10,24 @@ int main (void){
     direction direction = left;
 
     print_snake(head);
-    move_right(&head);
+    // propagate_coords(&head, 1,0);
+    // move_right(&head);
+    move_forward(&head, direction);
     print_snake(head);
-    take_fruit(&head, fruit);
+    move_forward(&head, direction);
     print_snake(head);
-
-
-
+    direction = down;
+    move_forward(&head, direction);
+    print_snake(head);
+    direction = left;
+    move_forward(&head, direction);
+    print_snake(head);
+    
+    
+    
+    // print_snake(head);
+    // take_fruit(&head, fruit);
+    // print_snake(head);
 
 
 
